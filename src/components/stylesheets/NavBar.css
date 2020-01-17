@@ -1,0 +1,23 @@
+.navbar {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	min-height: 10vh;
+	background: #282c34;
+	color: white;
+}
+
+.navlinks{
+  	list-style: none;
+}
+
+.links{
+	color: white;
+	text-decoration: none;
+}
+
+.fab{
+	font-size: 50px;
+	color: white;
+	text-decoration: none;
+}

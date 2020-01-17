@@ -1,15 +1,14 @@
 import React from "react"
+import './stylesheets/Footer.css'
 
-class Footer extends React.Component {
-    render() {
-        return (
-            <footer>
-                <h4>
-                    Antonio Rodriguez...
-                </h4>
-            </footer>
-        )
-    }
+function Footer() {
+    return (
+        <footer className="footer">
+            <h4>
+                Antonio Rodriguez...
+            </h4>
+        </footer>
+    )
 }
 
 export default Footer;
