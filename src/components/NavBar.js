@@ -7,7 +7,7 @@ class NavBar extends React.Component {
       return (
         <nav className="navbar">
 			<Link to="/">
-				<i class="fab fa-react"></i>			
+				<i className="fab fa-react"></i>			
 			</Link>			
             <ul className="navlinks">
 				<Link to="/jobs">

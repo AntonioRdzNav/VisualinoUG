@@ -1,9 +1,11 @@
 import React from "react"
 
-class JobShow extends React.Component {
+class JobShow extends React.Component{
 	render(){
 		return (
-			<h1>Show Job</h1>
+			<div>
+				<h1> Show this Job </h1> 
+			</div>
 		)
 	}
 }
