@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
+import React from 'react'
+import Footer from './components/Footer'
+import JobItem from './components/JobTitle'
+import Header from './components/Header'
 import './App.css';
+import jobsData from './jobs.json'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(){
+    super()
+    this.state = {
+       jobs: jobsData
+    }
+  }
+
+  render() {
+    const jobComponents = this.state.jobs.map(currentJob => {
+      return ( <JobItem key={currentJob._id} job={currentJob}/> )
+    })    
+
+    return(
+      <div className="App">
+        <Header />
+        {jobComponents}
+        <Footer />
+      </div>
+    )
+  }
 }
 
 export default App;
