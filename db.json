@@ -1,13 +1,31 @@
 {
   "jobs": [
     {
-      "id": "21da93" , 
-      "title":"Meister / Mitarbeiter (m/w) CNC-Zerspanungstechnik",
-      "city":"Schorndorf (Württemberg)",
-      "employer":"Hägele GmbH",
-      "requirements":["Erfolgreich abgeschlossene Ausbildung zum Meister (m/w) Feinbaumechanik, Meister (m/w) CNC-Fertigung, Industriemeister (m/w) oder ähnliche Ausbildung mit Fachrichtung Metall und CNC-Technik","Sehr gute Programmierkenntnisse in den Sprachen Siemens 840D, Fanuc und Mitsubishi","Hohe Flexibilität und Zuverlässigkeit","Selbstständiges und zielorientiertes Arbeiten","Sehr gute Kommunikationsfähigkeiten","Selbstbewusstes Auftreten und Durchsetzungsvermögen","Teamfähigkeit und gute Kommunikationsfähigkeit"],
-      "tasks":["Rüsten, Einrichten und Programmieren der Maschinen (CNC, Drehen, Fräsen, Sägen etc.) zur Fertigung von Einzelstücken, Klein- oder Mittelserien","PPS (Auftragsverteilung, Wareneingangskontrolle, Produktionsorganisation etc.)","Bedienung von Bearbeitungszentren (mit allen unterschiedlichen und vorhandenen Steuerungssprachen)","Programmieren und Laden unterschiedlicher Programme (Fanuc, Siemens Mitsubishi etc.)","Anpassung der Programmierung (Maße)","Prüfen der Werkstücke nach Vorgabe und Durchführen von Korrekturen nach technischen Zeichnungen und Plänen zur Qualitätssicherung (Arbeit mit digitalen und konventionellen Messmitteln)","Überwachung, Überprüfung und Optimierung des Fertigungsprozesses","Arbeitszeiten auf Erfordernis im Schichtbetrieb","Wartungs- und Reinigungsarbeiten an den Maschinen"]
-    },    
+      "id": "21da93",
+      "title": "Meister / Mitarbeiter (m/w) CNC-Zerspanungstechnik",
+      "city": "Schorndorf (Württemberg)",
+      "employer": "Hägele GmbH",
+      "requirements": [
+        "Erfolgreich abgeschlossene Ausbildung zum Meister (m/w) Feinbaumechanik, Meister (m/w) CNC-Fertigung, Industriemeister (m/w) oder ähnliche Ausbildung mit Fachrichtung Metall und CNC-Technik",
+        "Sehr gute Programmierkenntnisse in den Sprachen Siemens 840D, Fanuc und Mitsubishi",
+        "Hohe Flexibilität und Zuverlässigkeit",
+        "Selbstständiges und zielorientiertes Arbeiten",
+        "Sehr gute Kommunikationsfähigkeiten",
+        "Selbstbewusstes Auftreten und Durchsetzungsvermögen",
+        "Teamfähigkeit und gute Kommunikationsfähigkeit"
+      ],
+      "tasks": [
+        "Rüsten, Einrichten und Programmieren der Maschinen (CNC, Drehen, Fräsen, Sägen etc.) zur Fertigung von Einzelstücken, Klein- oder Mittelserien",
+        "PPS (Auftragsverteilung, Wareneingangskontrolle, Produktionsorganisation etc.)",
+        "Bedienung von Bearbeitungszentren (mit allen unterschiedlichen und vorhandenen Steuerungssprachen)",
+        "Programmieren und Laden unterschiedlicher Programme (Fanuc, Siemens Mitsubishi etc.)",
+        "Anpassung der Programmierung (Maße)",
+        "Prüfen der Werkstücke nach Vorgabe und Durchführen von Korrekturen nach technischen Zeichnungen und Plänen zur Qualitätssicherung (Arbeit mit digitalen und konventionellen Messmitteln)",
+        "Überwachung, Überprüfung und Optimierung des Fertigungsprozesses",
+        "Arbeitszeiten auf Erfordernis im Schichtbetrieb",
+        "Wartungs- und Reinigungsarbeiten an den Maschinen"
+      ]
+    },
     {
       "id": "21e158",
       "title": "Hospitanz (m/w) für die Repräsentanz Berlin",

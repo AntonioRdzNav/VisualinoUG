@@ -24,7 +24,10 @@ class JobShow extends React.Component{
 					loading: false,
 					openModal: false
             	})			  
-		  	})  		
+		  	})	
+			.catch(error => {
+				console.log(error);
+			});			  	
     }	
 
 	toggleModal() {
@@ -37,7 +40,11 @@ class JobShow extends React.Component{
         Axios.delete('http://localhost:8080/jobs/'+String(id))
 			.then(resp => {
 				console.log(resp.data)
-			}).catch(error => {
+			})
+			.then(() => {
+				this.props.history.push('/jobs')
+			})  			
+			.catch(error => {
 				console.log(error);
 			}) 
 	}

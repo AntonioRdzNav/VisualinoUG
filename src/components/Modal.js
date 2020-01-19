@@ -27,11 +27,9 @@ class Modal extends React.Component {
             {this.props.children}
 
             <div>
-                <Link to={{pathname: '/jobs'}}>
-                    <button onClick={this.onYes}>
-                        Yes
-                    </button>
-                </Link>                
+                <button onClick={this.onYes}>
+                    Yes
+                </button>              
                 <button onClick={this.props.onClose}>
                 No
                 </button>

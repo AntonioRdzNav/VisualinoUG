@@ -22,7 +22,10 @@ class JobIndex extends React.Component {
 					loading: false,
 					openModal: false
             	})			  
-		    })         
+		    })
+            .catch(error => {
+                console.log(error);
+            });                     
     }
 
     render(){    
