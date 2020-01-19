@@ -1,4 +1,5 @@
 import React from "react"
+import Loading from '../Loading'
 import jobsData from '../../jobs.json'
 import '../stylesheets/JobIndex.css'
 import {Link} from 'react-router-dom'
@@ -9,18 +10,22 @@ class JobIndex extends React.Component {
     constructor(){
         super()
         this.state = {
-            jobs: []
+            jobs: [],
+            loading: true
         }
     }
 
-    getProducts(){
-        const jobs = JSON.parse(localStorage.getItem('jobsData'))
-        this.setState({jobs: jobs})        
-    }    
-
-    componentWillMount(){
-        this.getProducts()
+    componentDidMount(){
+        const jobsData = JSON.parse(localStorage.getItem('jobsData'))
+        this.setState({
+            jobs: jobsData,
+            loading: false
+        })   
     }
+
+    getJobs(){
+        return this.state.jobs
+    }        
 
     render(){    
         return (          
@@ -30,7 +35,10 @@ class JobIndex extends React.Component {
                         return (
                             <div key={job._id}>
                                 <hr/>
-                                <Link to={`/jobs/${job._id}`}>
+                                <Link to={{
+                                    pathname: `/jobs/${job._id}`,
+                                    job: job
+                                }}>
                                     <h4> {job.title} </h4>            
                                 </Link>
                                 <h5> {job.city} </h5>
