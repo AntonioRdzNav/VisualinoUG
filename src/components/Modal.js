@@ -1,6 +1,5 @@
 import React from 'react';
 import './stylesheets/Modal.css'
-import { Link } from "react-router-dom";
 
 class Modal extends React.Component {
     constructor(props){

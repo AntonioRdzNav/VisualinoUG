@@ -16,9 +16,9 @@ function App() {
 				<Switch>
 					<Route path="/" exact component={HomePage} />
 					<Route path="/jobs" exact component={JobIndex} />
-					<Route path="/jobs/create" exact component={JobCreate} />					
+					<Route path="/jobs/create" exact component={JobCreate} />	
+					<Route path="/jobs/:id/update" component={JobUpdate} />									
 					<Route path="/jobs/:id" component={JobShow} />					
-					<Route path="/jobs/:id/update" component={JobUpdate} />
 					<Redirect path="*" to="/" />
 				</Switch>
 				<Footer />

@@ -2,6 +2,7 @@ import React from "react"
 import Axios from "axios"
 import Modal from "../Modal"
 import Loading from '../Loading'
+import {Link} from 'react-router-dom'
 
 class JobShow extends React.Component{
 	constructor(props){
@@ -63,7 +64,9 @@ class JobShow extends React.Component{
 				<p> {requirements} </p>
 				<p> {tasks} </p>
 
-				<button>Update</button>
+                <Link to={{pathname: "/jobs/"+id+"/update"}}>
+                    <button>Update</button>
+                </Link>
 				<button onClick={this.toggleModal}>Delete</button>
 				<Modal 
 					show={this.state.openModal}
