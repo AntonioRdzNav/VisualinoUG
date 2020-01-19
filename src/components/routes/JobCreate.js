@@ -1,5 +1,5 @@
 import React from "react"
-import Axios from "axios"
+import Firebase from '../../firebase.js'
 
 class JobCreate extends React.Component{
 	constructor(props){
@@ -7,25 +7,31 @@ class JobCreate extends React.Component{
 
         this.onSubmit = this.onSubmit.bind(this)		
 	}
+	_isMounted = false   
+
+	componentDidMount(){
+		this._isMounted = true
+	}
 
 	onSubmit(event){
-		event.preventDefault()		
-        Axios.post('http://localhost:8080/jobs', {
-				id: String(Math.ceil(Math.random() * 100000)),
-				title: this.title.value,
-				city: this.city.value,
-				employer: this.employer.value,
-				requirements: this.requirements.value,
-				tasks: this.tasks.value
-			})
-			.then(resp => {
-				console.log(resp.data)
-			}).then(() => {
-				this.props.history.push('/jobs')
-			}).catch(error => {
-				console.log(error)
-			});   
+		event.preventDefault()	
+		const jobsRef = Firebase.database().ref('/jobs')	
+		const job = {
+			title: this.title.value,
+			city: this.city.value,
+			employer: this.employer.value,
+			requirements: [this.requirements.value],
+			tasks: [this.tasks.value]
+		}
+		if(this._isMounted){
+			jobsRef.push(job)			
+		}	
+		this.props.history.push('/jobs')  
 	}	    	
+
+	componentWillUnmount(){
+        this._isMounted = false
+    }
 
 	render(){
 		return (

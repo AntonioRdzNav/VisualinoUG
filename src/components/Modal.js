@@ -30,7 +30,7 @@ class Modal extends React.Component {
                     Yes
                 </button>              
                 <button onClick={this.props.onClose}>
-                No
+                    No
                 </button>
             </div>
             </div>

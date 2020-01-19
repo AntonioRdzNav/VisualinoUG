@@ -1,8 +1,8 @@
 import React from "react"
-import Axios from "axios"
 import Loading from '../Loading'
 import '../stylesheets/JobIndex.css'
 import {Link} from 'react-router-dom'
+import Firebase from '../../firebase.js'
 
 class JobIndex extends React.Component {
     constructor(props){
@@ -12,24 +12,31 @@ class JobIndex extends React.Component {
             loading: true
         }
     }
+    _isMounted = false    
 
     componentDidMount(){
+        this._isMounted = true
         // get all jobs 
-        Axios.get('http://localhost:8080/jobs')
-            .then(response => {
-				this.setState({
-					jobs: response.data,
-					loading: false,
-					openModal: false
-            	})			  
-		    })
-            .catch(error => {
-                console.log(error);
-            });                     
+        const jobsRef = Firebase.database().ref('/jobs')
+        jobsRef.on('value', (snapshot) => {
+            const state = snapshot.val()
+            if(this._isMounted){
+                this.setState({
+                    jobs: state,
+                    loading: false
+                })
+            }
+        })          
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false
     }
 
     render(){    
-        if(this.state.loading === true){
+        const {loading, jobs} = this.state
+
+        if(loading === true){
             return <Loading />
         }
         return (          
@@ -38,15 +45,15 @@ class JobIndex extends React.Component {
                     <button>Create new job!</button>
                 </Link>
                 {
-                    this.state.jobs.map(job => {
+                    Object.keys(jobs).map(id => {
                         return (
-                            <div key={job.id}>
+                            <div key={id}>
                                 <hr/>
-                                <Link to={{pathname: `/jobs/${job.id}`}}>
-                                    <h4> {job.title} </h4>            
+                                <Link to={{pathname: `/jobs/${id}`}}>
+                                    <h4> {jobs[id].title} </h4>            
                                 </Link>
-                                <h5> {job.city} </h5>
-                                <h6> {job.employer} </h6>                            
+                                <h5> {jobs[id].city} </h5>
+                                <h6> {jobs[id].employer} </h6>                            
                             </div>
                         )
                     })

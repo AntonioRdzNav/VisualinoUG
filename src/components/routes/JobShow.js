@@ -1,8 +1,8 @@
 import React from "react"
-import Axios from "axios"
 import Modal from "../Modal"
 import Loading from '../Loading'
 import {Link} from 'react-router-dom'
+import Firebase from '../../firebase.js'
 
 class JobShow extends React.Component{
 	constructor(props){
@@ -15,21 +15,28 @@ class JobShow extends React.Component{
 		this.toggleModal = this.toggleModal.bind(this)
 		this.onDelete = this.onDelete.bind(this)
 	}
+	_isMounted = false   
 
     componentDidMount(){
-		// get only job with corresponding id
-        Axios.get('http://localhost:8080/jobs/', {params: {id: this.props.match.params.id}})
-		  	.then(response => {
+        this._isMounted = true
+        // get job by id 
+		const {id} = this.props.match.params
+        const jobRef = Firebase.database().ref(`/jobs/${id}`)
+        jobRef.on('value', (snapshot) => {
+            const state = snapshot.val()
+            if(this._isMounted){
 				this.setState({
-					job: response.data[0],
+					job: state,
 					loading: false,
 					openModal: false
-            	})			  
-		  	})	
-			.catch(error => {
-				console.log(error);
-			});			  	
+            	})
+			}
+        })         		
     }	
+
+	componentWillUnmount(){
+        this._isMounted = false
+    }
 
 	toggleModal() {
 		this.setState({
@@ -38,16 +45,10 @@ class JobShow extends React.Component{
 	}	
 
 	onDelete(id){
-        Axios.delete('http://localhost:8080/jobs/'+String(id))
-			.then(resp => {
-				console.log(resp.data)
-			})
-			.then(() => {
-				this.props.history.push('/jobs')
-			})  			
-			.catch(error => {
-				console.log(error);
-			}) 
+		// delete job by id
+        const jobRef = Firebase.database().ref(`/jobs/${id}`)
+        jobRef.remove()  	
+		this.props.history.push('/jobs')  	
 	}
 
 	render(){
@@ -55,7 +56,8 @@ class JobShow extends React.Component{
             return <Loading />
         }
 
-		const {id, title, city, employer, requirements, tasks} = this.state.job		
+		const {title, city, employer, requirements, tasks} = this.state.job		
+		const {id} = this.props.match.params	
 		return (
 			<div>
 				<h4> {title} </h4>            

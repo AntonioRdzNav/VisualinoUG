@@ -1,7 +1,6 @@
 {
-  "jobs": [
-    {
-      "id": "21da93",
+  "jobs": {
+    "0":{
       "title": "Meister / Mitarbeiter (m/w) CNC-Zerspanungstechnik",
       "city": "Schorndorf (Württemberg)",
       "employer": "Hägele GmbH",
@@ -26,8 +25,7 @@
         "Wartungs- und Reinigungsarbeiten an den Maschinen"
       ]
     },
-    {
-      "id": "21e158",
+    "1":{
       "title": "Hospitanz (m/w) für die Repräsentanz Berlin",
       "city": "Stuttgart",
       "employer": "Robert Bosch Stiftung GmbH",
@@ -50,8 +48,7 @@
         "Datenerfassung und Datenpflege."
       ]
     },
-    {
-      "id": "21e2fc",
+    "2":{
       "title": "Direktvermittlung: Gebäudetechniker (m/w) Elektro",
       "city": "Stuttgart",
       "employer": "DIS AG Geschäftsbereich Finance",
@@ -79,8 +76,7 @@
         "Sicherstellung einer umfassenden Gebäudetechnik"
       ]
     },
-    {
-      "id": "21f29d",
+    "3":{
       "title": "Internship High performance computing in Python",
       "city": "Gerlingen (Württemberg)",
       "employer": "Robert Bosch GmbH",
@@ -91,8 +87,7 @@
         "Performance optimization of algorithms"
       ]
     },
-    {
-      "id": "21f9d8",
+    "4":{
       "title": "(Junior-) Marktmanager (m/w) für Messtechnik im Bereich Food",
       "city": "Lenzkirch",
       "employer": "Testo Industrial Services GmbH",
@@ -114,8 +109,7 @@
         "Ausbau der Kontakte zu bestehenden Handelspartnern und Erweiterung des Handelsnetzwerkes"
       ]
     },
-    {
-      "id": "21fcef",
+    "5":{
       "title": "Projektingenieur Automotive",
       "city": "Pfullingen",
       "employer": "PRETTL Kabelkonfektion GmbH",
@@ -136,8 +130,7 @@
         "Sicherstellen der Erreichung von Projektzielen"
       ]
     },
-    {
-      "id": "21fd34",
+    "6":{
       "title": "Verkaufstalent /Medienberater Print und Online (m/w)",
       "city": "Konstanz",
       "employer": "Südkurier Anzeigenservice GmbH Medienhaus",
@@ -159,8 +152,7 @@
         "Sie führen Markt-, Zielgruppen- und Potenzialanalysen durch, leiten Maßnahmen ab und entwickeln gemeinsam mit internen Schnittstellen (z. B. Crossmedia, Digital, Redaktion) kundenindividuelle Lösungen und Angebote bis zur Umsetzung."
       ]
     },
-    {
-      "id": "221133",
+    "7":{
       "title": "Leiter Service Europa (m/w)",
       "city": "Stuttgart",
       "employer": "Dr. Maier + Partner GmbH",
@@ -182,8 +174,7 @@
         "Schnittstellenmanagement zwischen Vertrieb, Operations, Technik und Qualitätsmanagement"
       ]
     },
-    {
-      "id": "2216f9",
+    "8":{
       "title": "Senior Software Developer C++ (m/w) Softwareentwickler C++ im Raum Frankfurt am Main",
       "city": "Stuttgart",
       "employer": "Ratbacher GmbH",
@@ -197,8 +188,7 @@
         "Kontaktanfrage"
       ]
     },
-    {
-      "id": "221b57",
+    "9":{
       "title": "Kfz-Mechaniker/-Mechatroniker (m/w) als Versuchsfachkraft (m/w) im Entwicklungsumfeld bei einem namhaften Automobilzulieferer",
       "city": "Heilbronn (Neckar)",
       "employer": "DIS AG Geschäftsbereich Office & Management",
@@ -216,14 +206,6 @@
         "EoL Abnahme der Getriebe nach Anweisung",
         "Aufbau von Getrieben auf Prüfständen sowie Ein- und Ausbau von Getrieben in bzw. aus Versuchsfahrzeugen aller Art"
       ]
-    },
-    {
-      "id": "8590",
-      "title": "ddwsd",
-      "city": "dsss",
-      "employer": "dsss",
-      "requirements": "dsss",
-      "tasks": "dds"
     }
-  ]
+  }
 }

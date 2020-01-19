@@ -1,6 +1,6 @@
 import React from "react"
-import Axios from "axios"
 import Loading from '../Loading'
+import Firebase from '../../firebase.js'
 
 class JobUpdate extends React.Component{
 	constructor(props){
@@ -12,38 +12,43 @@ class JobUpdate extends React.Component{
 
         this.onUpdate = this.onUpdate.bind(this)		
 	}
+	_isMounted = false   
 
     componentDidMount(){
-		// get only job with corresponding id
-        Axios.get('http://localhost:8080/jobs/', {params: {id: this.props.match.params.id}})
-		  	.then(response => {
+        this._isMounted = true
+        // get job by id 
+		const {id} = this.props.match.params
+        const ref = Firebase.database().ref(`/jobs/${id}`)
+        ref.on('value', (snapshot) => {
+            const state = snapshot.val()
+            if(this._isMounted){
 				this.setState({
-					job: response.data[0],
+					job: state,
 					loading: false
-            	})			  
-		  	})	
-			.catch(error => {
-				console.log(error);
-			});			  	
-    }		
+            	})
+			}
+        }) 		  	
+    }	
+
+	componentWillUnmount(){
+        this._isMounted = false
+    }	
 
 	onUpdate(event){	
+		const {id} = this.props.match.params
 		event.preventDefault()	
-        Axios.put('http://localhost:8080/jobs/'+String(this.props.match.params.id), {
-				id: this.props.match.params.id,
-				title: this.title.value,
-				city: this.city.value,
-				employer: this.employer.value,
-				requirements: this.requirements.value,
-				tasks: this.tasks.value
-			})
-			.then(resp => {
-				console.log(resp.data)
-			}).then(() => {
-				this.props.history.push('/jobs/'+String(this.props.match.params.id))
-			}).catch(error => {
-				console.log(error)
-			}); 
+		const jobsRef = Firebase.database().ref('/jobs')	
+		const job = {
+			title: this.title.value,
+			city: this.city.value,
+			employer: this.employer.value,
+			requirements: [this.requirements.value],
+			tasks: [this.tasks.value]
+		}
+		jobsRef.child(id).update(job).catch(error => {
+			console.log(error)
+		})
+		this.props.history.push('/jobs')  
 	}
 
 	render(){
