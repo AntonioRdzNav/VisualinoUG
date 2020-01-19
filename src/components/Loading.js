@@ -21,7 +21,7 @@ class Loading extends React.Component{
         }, 300)
     }
 
-    componentWillMount(){
+    componentWillUnmount(){
         clearInterval(this.interval)
     }
 

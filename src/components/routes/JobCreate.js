@@ -1,9 +1,26 @@
 import React from "react"
 
-class JobCreate extends React.Component {
+class JobCreate extends React.Component{
+	constructor(props){
+		super(props)
+		this.state = {
+			job: {
+				title: "",
+				city: "",
+				employer: "",
+				requirements: "",
+				tasks: ""
+			}
+		}
+	}
+
 	render(){
+		const {title, city, employer, requirements, tasks} = this.state.job
 		return (
-			<h1>Create Job</h1>
+			<div>
+
+				<button>Create</button>
+			</div>
 		)
 	}
 }

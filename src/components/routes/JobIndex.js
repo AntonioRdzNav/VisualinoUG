@@ -1,11 +1,12 @@
 import React from "react"
+import Axios from "axios"
 import Loading from '../Loading'
 import '../stylesheets/JobIndex.css'
 import {Link} from 'react-router-dom'
 
 class JobIndex extends React.Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
             jobs: [],
             loading: true
@@ -13,13 +14,15 @@ class JobIndex extends React.Component {
     }
 
     componentDidMount(){
-        fetch('http://localhost:8080/jobs', {
-            "method": "GET"
-        }).then((response) => response.json())
-          .then(data => this.setState({
-                jobs: data,
-                loading: false
-            }))           
+        // get all jobs 
+        Axios.get('http://localhost:8080/jobs')
+            .then(response => {
+				this.setState({
+					jobs: response.data,
+					loading: false,
+					openModal: false
+            	})			  
+		    })         
     }
 
     render(){    
@@ -28,15 +31,15 @@ class JobIndex extends React.Component {
         }
         return (          
             <div className="index">
+                <Link to={{pathname: '/jobs/create'}}>
+                    <button>Create new job!</button>
+                </Link>
                 {
                     this.state.jobs.map(job => {
                         return (
-                            <div key={job._id}>
+                            <div key={job.id}>
                                 <hr/>
-                                <Link to={{
-                                    pathname: `/jobs/${job._id}`,
-                                    job: job
-                                }}>
+                                <Link to={{pathname: `/jobs/${job.id}`}}>
                                     <h4> {job.title} </h4>            
                                 </Link>
                                 <h5> {job.city} </h5>

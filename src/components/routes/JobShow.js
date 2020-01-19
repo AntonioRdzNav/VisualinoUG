@@ -1,34 +1,53 @@
 import React from "react"
+import Axios from "axios"
+import Modal from "../Modal"
 import Loading from '../Loading'
-import jobsData from '../../jobs.json'
-
-localStorage.setItem('jobsData', JSON.stringify(jobsData))
 
 class JobShow extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {
 			job: {},
-			loading: true
+			loading: true,
+			openModal: false
 		}
+		this.toggleModal = this.toggleModal.bind(this)
+		this.onDelete = this.onDelete.bind(this)
 	}
 
     componentDidMount(){
-        fetch('http://localhost:8080/jobs', {
-            "method": "GET"
-        }).then((response) => response.json())
-          .then(data => this.setState({
-                job: data.filter((currJob) => currJob._id === this.props.match.params.id)[0],
-                loading: false
-            }))    		
+		// get only job with corresponding id
+        Axios.get('http://localhost:8080/jobs/', {params: {id: this.props.match.params.id}})
+		  	.then(response => {
+				this.setState({
+					job: response.data[0],
+					loading: false,
+					openModal: false
+            	})			  
+		  	})  		
     }	
+
+	toggleModal() {
+		this.setState({
+			openModal: !this.state.openModal
+		})
+	}	
+
+	onDelete(id){
+        Axios.delete('http://localhost:8080/jobs/'+String(id))
+			.then(resp => {
+				console.log(resp.data)
+			}).catch(error => {
+				console.log(error);
+			}) 
+	}
 
 	render(){
         if(this.state.loading === true){
             return <Loading />
         }
 
-		const {title, city, employer, requirements, tasks} = this.state.job		
+		const {id, title, city, employer, requirements, tasks} = this.state.job		
 		return (
 			<div>
 				<h4> {title} </h4>            
@@ -38,7 +57,15 @@ class JobShow extends React.Component{
 				<p> {tasks} </p>
 
 				<button>Update</button>
-				<button>Delete</button>
+				<button onClick={this.toggleModal}>Delete</button>
+				<Modal 
+					show={this.state.openModal}
+					onClose={this.toggleModal}
+					onYes={this.onDelete}
+					id={id}
+				>
+					Are you sure you want to delete?
+				</Modal>				
 			</div>
 		)
 	}
