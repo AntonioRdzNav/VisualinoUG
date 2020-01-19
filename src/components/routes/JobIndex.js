@@ -28,6 +28,10 @@ class JobIndex extends React.Component {
     }        
 
     render(){    
+        
+        if(this.state.loading === true){
+            return <Loading />
+        }
         return (          
             <div className="index">
                 {
