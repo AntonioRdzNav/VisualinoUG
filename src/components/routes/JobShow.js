@@ -14,11 +14,13 @@ class JobShow extends React.Component{
 	}
 
     componentDidMount(){
-        const jobsData = JSON.parse(localStorage.getItem('jobsData'))
-        this.setState({
-            job: jobsData.filter((currJob) => currJob._id === this.props.match.params.id)[0],
-            loading: false
-        })   
+        fetch('http://localhost:8080/jobs', {
+            "method": "GET"
+        }).then((response) => response.json())
+          .then(data => this.setState({
+                job: data.filter((currJob) => currJob._id === this.props.match.params.id)[0],
+                loading: false
+            }))    		
     }	
 
 	render(){

@@ -1,10 +1,7 @@
 import React from "react"
 import Loading from '../Loading'
-import jobsData from '../../jobs.json'
 import '../stylesheets/JobIndex.css'
 import {Link} from 'react-router-dom'
-
-localStorage.setItem('jobsData', JSON.stringify(jobsData))
 
 class JobIndex extends React.Component {
     constructor(){
@@ -16,19 +13,16 @@ class JobIndex extends React.Component {
     }
 
     componentDidMount(){
-        const jobsData = JSON.parse(localStorage.getItem('jobsData'))
-        this.setState({
-            jobs: jobsData,
-            loading: false
-        })   
+        fetch('http://localhost:8080/jobs', {
+            "method": "GET"
+        }).then((response) => response.json())
+          .then(data => this.setState({
+                jobs: data,
+                loading: false
+            }))           
     }
 
-    getJobs(){
-        return this.state.jobs
-    }        
-
     render(){    
-        
         if(this.state.loading === true){
             return <Loading />
         }
