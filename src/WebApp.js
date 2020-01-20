@@ -9,19 +9,19 @@ import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom'
 
 function WebApp() {
     return(
-			<div>
-				<NavBar />
-        		<BrowserRouter>			
-					<Switch>
-						<Route path="/jobs" exact component={JobIndex} />
-						<Route path="/jobs/create" exact component={JobCreate} />	
-						<Route path="/jobs/:id/update" component={JobUpdate} />									
-						<Route path="/jobs/:id" component={JobShow} />					
-						<Redirect path="*" to="/jobs" />					
-					</Switch>
-				</BrowserRouter>	
-				<Footer />					
-			</div>			
+		<div>				
+			<BrowserRouter>		
+				<NavBar />			
+				<Switch>					
+					<Route path="/jobs" exact component={JobIndex} />
+					<Route path="/jobs/create" exact component={JobCreate} />	
+					<Route path="/jobs/:id/update" component={JobUpdate} />									
+					<Route path="/jobs/:id" component={JobShow} />					
+					<Redirect path="*" to="/jobs" />					
+				</Switch>
+				<Footer />						
+			</BrowserRouter>				
+		</div>			
     )
 }
 

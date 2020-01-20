@@ -1,37 +1,28 @@
 import React from "react"
-import Firebase from '../firebase.js'
+import Reflux from "reflux"
+import JobStore from '../reflux/stores/JobStore'
+import JobActions from '../reflux/actions/JobActions'
 
-class JobCreate extends React.Component{
+class JobCreate extends Reflux.Component{
 	constructor(props){
 		super(props)
-
-        this.onSubmit = this.onSubmit.bind(this)		
+		this.store = JobStore
+		this.onSubmit = this.onSubmit.bind(this)
 	}
-	_isMounted = false   
-
-	componentDidMount(){
-		this._isMounted = true
-	}
-
+	
 	onSubmit(event){
-		event.preventDefault()	
-		const jobsRef = Firebase.database().ref('/jobs')	
+		event.preventDefault()
 		const job = {
 			title: this.title.value,
 			city: this.city.value,
 			employer: this.employer.value,
 			requirements: [this.requirements.value],
 			tasks: [this.tasks.value]
-		}
-		if(this._isMounted){
-			jobsRef.push(job)			
-		}	
-		this.props.history.push('/jobs')  
+		}		
+		// create job
+		JobActions.createJob(job)
+		this.props.history.push('/jobs')     
 	}	    	
-
-	componentWillUnmount(){
-        this._isMounted = false
-    }
 
 	render(){
 		return (

@@ -1,40 +1,30 @@
 import React from "react"
+import Reflux from "reflux"
 import Loading from '../components/Loading'
 import '../stylesheets/JobIndex.css'
 import {Link} from 'react-router-dom'
-import Firebase from '../firebase.js'
+import JobStore from '../reflux/stores/JobStore'
+import JobActions from '../reflux/actions/JobActions'
 
-class JobIndex extends React.Component {
+class JobIndex extends Reflux.Component {
     constructor(props){
         super(props)
         this.state = {
-            jobs: [],
             loading: true
         }
-    }
-    _isMounted = false    
+        this.store = JobStore
+    } 
 
-    componentDidMount(){
-        this._isMounted = true
-        // get all jobs 
-        const jobsRef = Firebase.database().ref('/jobs')
-        jobsRef.on('value', (snapshot) => {
-            const state = snapshot.val()
-            if(this._isMounted){
-                this.setState({
-                    jobs: state,
-                    loading: false
-                })
-            }
-        })          
-    }
-
-    componentWillUnmount(){
-        this._isMounted = false
+	componentDidMount(){ 
+        // get all jobs
+        JobActions.getAllJobs()
+        this.setState({
+            loading: false				
+        })   
     }
 
     render(){    
-        const {loading, jobs} = this.state
+        const {loading, allJobs} = this.state
 
         if(loading === true){
             return <Loading />
@@ -45,15 +35,15 @@ class JobIndex extends React.Component {
                     <button>Create new job!</button>
                 </Link>
                 {
-                    Object.keys(jobs).map(id => {
+                    Object.keys(allJobs).map(id => {
                         return (
                             <div key={id}>
                                 <hr/>
                                 <Link to={{pathname: `/jobs/${id}`}}>
-                                    <h4> {jobs[id].title} </h4>            
+                                    <h4> {allJobs[id].title} </h4>            
                                 </Link>
-                                <h5> {jobs[id].city} </h5>
-                                <h6> {jobs[id].employer} </h6>                            
+                                <h5> {allJobs[id].city} </h5>
+                                <h6> {allJobs[id].employer} </h6>                            
                             </div>
                         )
                     })

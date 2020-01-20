@@ -1,53 +1,42 @@
 import React from "react"
+import Reflux from "reflux"
 import Modal from "../components/Modal"
 import Loading from '../components/Loading'
 import {Link} from 'react-router-dom'
-import Firebase from '../firebase.js'
+import JobStore from '../reflux/stores/JobStore'
+import JobActions from '../reflux/actions/JobActions'
 
-class JobShow extends React.Component{
+class JobShow extends Reflux.Component{
 	constructor(props){
 		super(props)
 		this.state = {
-			job: {},
 			loading: true,
 			openModal: false
 		}
+		this.store = JobStore
 		this.toggleModal = this.toggleModal.bind(this)
 		this.onDelete = this.onDelete.bind(this)
 	}
-	_isMounted = false   
 
     componentDidMount(){
-        this._isMounted = true
-        // get job by id 
 		const {id} = this.props.match.params
-        const jobRef = Firebase.database().ref(`/jobs/${id}`)
-        jobRef.on('value', (snapshot) => {
-            const state = snapshot.val()
-            if(this._isMounted){
-				this.setState({
-					job: state,
-					loading: false,
-					openModal: false
-            	})
-			}
-        })         		
+       	// get job by id
+		JobActions.getJobById(id)
+        this.setState({
+			loading: false,
+			openModal: false				
+        })   		   
     }	
-
-	componentWillUnmount(){
-        this._isMounted = false
-    }
 
 	toggleModal() {
 		this.setState({
+			loading: this.state.loading,			
 			openModal: !this.state.openModal
 		})
 	}	
-
 	onDelete(id){
-		// delete job by id
-        const jobRef = Firebase.database().ref(`/jobs/${id}`)
-        jobRef.remove()  	
+		// delete job by id	
+		JobActions.deleteJobById(id)
 		this.props.history.push('/jobs')  	
 	}
 

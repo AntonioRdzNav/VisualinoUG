@@ -6,12 +6,10 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom'
 function App() {
     return(
 		<BrowserRouter>
-			<div>
-				<Switch>
-					<Route path="/" exact component={HomePage} />
-					<Route path="/" component={WebApp} />
-				</Switch>
-			</div>	
+			<Switch>
+				<Route path="/" exact component={HomePage} />
+				<Route path="/" component={WebApp} />
+			</Switch>
 		</BrowserRouter>
     )
 }

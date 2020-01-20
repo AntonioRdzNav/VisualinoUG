@@ -1,43 +1,31 @@
 import React from "react"
+import Reflux from "reflux"
 import Loading from '../components/Loading'
-import Firebase from '../firebase.js'
+import JobStore from '../reflux/stores/JobStore'
+import JobActions from '../reflux/actions/JobActions'
 
-class JobUpdate extends React.Component{
+class JobUpdate extends Reflux.Component{
 	constructor(props){
 		super(props)
 		this.state = {
-			job: {},
 			loading: true
 		}
-
-        this.onUpdate = this.onUpdate.bind(this)		
+		this.store = JobStore	
+		this.onUpdate = this.onUpdate.bind(this)
 	}
-	_isMounted = false   
 
     componentDidMount(){
-        this._isMounted = true
-        // get job by id 
-		const {id} = this.props.match.params
-        const ref = Firebase.database().ref(`/jobs/${id}`)
-        ref.on('value', (snapshot) => {
-            const state = snapshot.val()
-            if(this._isMounted){
-				this.setState({
-					job: state,
-					loading: false
-            	})
-			}
-        }) 		  	
-    }	
-
-	componentWillUnmount(){
-        this._isMounted = false
+		const {id} = this.props.match.params		
+        // get job by id 	
+		JobActions.getJobById(id)
+		this.setState({
+			loading: false
+		})	
     }	
 
 	onUpdate(event){	
-		const {id} = this.props.match.params
-		event.preventDefault()	
-		const jobsRef = Firebase.database().ref('/jobs')	
+		event.preventDefault()
+		const {id} = this.props.match.params	
 		const job = {
 			title: this.title.value,
 			city: this.city.value,
@@ -45,9 +33,8 @@ class JobUpdate extends React.Component{
 			requirements: [this.requirements.value],
 			tasks: [this.tasks.value]
 		}
-		jobsRef.child(id).update(job).catch(error => {
-			console.log(error)
-		})
+		// update job by id
+		JobActions.updateJobById(id, job)
 		this.props.history.push('/jobs')  
 	}
 
