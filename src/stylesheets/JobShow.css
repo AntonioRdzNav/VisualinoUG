@@ -1,0 +1,38 @@
+.jumbotron{
+    width: 70%;
+    margin: 30px auto 30px auto;
+    background-color: rgb(221, 230, 230);
+    padding: 10px;
+    border-radius: 15px;
+    margin-bottom: 60px;
+}
+
+.container{
+    display: flex;
+}
+
+.title, .buttons{
+    margin: 10px auto 10px auto;
+    line-height: 30px;
+}
+
+.list{
+    line-height: 30px;
+}
+
+.tab{
+    padding-left: 65px;
+}
+
+.labTitle, .hTitle{
+    display: inline;
+}
+
+.hTitle{
+    font-weight: normal;
+}
+
+.labTitle{
+    font-weight: bold;
+    color: rgb(21, 21, 199);
+}

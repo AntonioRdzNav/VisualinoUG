@@ -1,5 +1,6 @@
 import React from 'react';
 import '../stylesheets/Modal.css'
+import Button from './Button'
 
 class Modal extends React.Component {
     constructor(props){
@@ -23,16 +24,22 @@ class Modal extends React.Component {
         return (
         <div className="backdrop">
             <div className="modal">
-            {this.props.children}
+                {this.props.children}
 
-            <div>
-                <button onClick={this.onYes}>
-                    Yes
-                </button>              
-                <button onClick={this.props.onClose}>
-                    No
-                </button>
-            </div>
+                <div>
+                    <Button 
+                        text="Yes"
+                        type="success"
+                        size="small"
+                        onClick={this.onYes}
+                    />
+                    <Button 
+                        text="No"
+                        type="danger"
+                        size="small"
+                        onClick={this.props.onClose}
+                    />                                            
+                </div>
             </div>
         </div>
         );

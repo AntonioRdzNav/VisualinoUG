@@ -1,6 +1,7 @@
 import React from "react"
 import Reflux from "reflux"
 import Loading from '../components/Loading'
+import Button from '../components/Button'
 import '../stylesheets/JobIndex.css'
 import {Link} from 'react-router-dom'
 import JobStore from '../reflux/stores/JobStore'
@@ -31,23 +32,45 @@ class JobIndex extends Reflux.Component {
         }
         return (          
             <div className="index">
-                <Link to={{pathname: '/jobs/create'}}>
-                    <button>Create new job!</button>
-                </Link>
-                {
-                    Object.keys(allJobs).map(id => {
-                        return (
-                            <div key={id}>
-                                <hr/>
-                                <Link to={{pathname: `/jobs/${id}`}}>
-                                    <h4> {allJobs[id].title} </h4>            
-                                </Link>
-                                <h5> {allJobs[id].city} </h5>
-                                <h6> {allJobs[id].employer} </h6>                            
-                            </div>
-                        )
-                    })
-                }                   
+                <div>
+                    <h1>Discover Jobs</h1>
+                    <Link to={{pathname: '/jobs/create'}} 
+                          style={{textDecoration:'inherit',color:'inherit'}}>
+                        <Button 
+                            text="Create new job!"
+                            type="success"
+                            size="large"
+                        />
+                    </Link>                    
+                    <hr/>                    
+			    </div>
+            <table id="jobsTable">
+				<thead>	 
+					<tr>
+						<th>Job Title</th>
+						<th>Location</th>
+						<th>Employer</th>
+					</tr>
+				</thead>
+				<tbody>
+                    {
+                        Object.keys(allJobs).map(id => {
+                            return (
+                                <tr key={id}>
+                                    <td> 
+                                        <Link to={{pathname: `/jobs/${id}`}} 
+                                              style={{textDecoration:'inherit',color:'inherit'}}>
+                                            {allJobs[id].title} 
+                                        </Link>                       
+                                    </td>                                           
+                                    <td> {allJobs[id].city} </td>
+                                    <td> {allJobs[id].employer} </td>                            
+                                </tr>
+                            )
+                        })
+                    }                       
+				</tbody>
+			</table>                                
             </div>            
         )
     }

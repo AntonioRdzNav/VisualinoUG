@@ -4,9 +4,9 @@ import '../stylesheets/Footer.css'
 function Footer() {
     return (
         <footer className="footer">
-            <h4>
+            <p>
                 Antonio Rodriguez...
-            </h4>
+            </p>
         </footer>
     )
 }

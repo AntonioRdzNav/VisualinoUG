@@ -2,7 +2,12 @@
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	min-height: 10vh;
+	height: 25px;
 	background: #282c34;
 	color: white;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
 }

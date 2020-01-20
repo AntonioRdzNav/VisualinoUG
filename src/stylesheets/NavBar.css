@@ -2,14 +2,14 @@
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	min-height: 10vh;
+	height: 55px;
 	background: #282c34;
 	color: white;
 }
 
 .navlinks{
   	list-style: none;
-}
+} 
 
 .links{
 	color: white;

@@ -9,7 +9,8 @@ function NavBar() {
         <i className="fab fa-react"></i>			
       </a>		
       <ul className="navlinks">
-        <Link to="/jobs">
+        <Link to="/jobs"
+              style={{textDecoration:'inherit',color:'inherit'}}>
             <li className="links">
               <h3> Jobs </h3>
             </li>		
