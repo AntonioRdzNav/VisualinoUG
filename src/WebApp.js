@@ -6,12 +6,23 @@ import JobCreate from './routes/JobCreate'
 import JobShow from './routes/JobShow'
 import JobUpdate from './routes/JobUpdate'
 import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 function WebApp() {
     return(
 		<div>				
 			<BrowserRouter>		
-				<NavBar />			
+				<NavBar />		
+				<ToastContainer
+					position="top-right"
+					autoClose={2000}
+					hideProgressBar={false}
+					newestOnTop
+					closeOnClick
+					rtl={false}
+					pauseOnVisibilityChange={false}
+					/>									
 				<Switch>					
 					<Route path="/jobs" exact component={JobIndex} />
 					<Route path="/jobs/create" exact component={JobCreate} />	

@@ -6,6 +6,8 @@ import JobStore from '../reflux/stores/JobStore'
 import JobActions from '../reflux/actions/JobActions'
 import ReqActions from '../reflux/actions/ReqActions'
 import TaskActions from '../reflux/actions/TaskActions'
+import {Redirect} from 'react-router-dom'
+import {toast} from 'react-toastify'
 
 class JobUpdate extends Reflux.Component{
 	constructor(props){
@@ -24,6 +26,22 @@ class JobUpdate extends Reflux.Component{
         // get job by id 	
 		JobActions.getJobById(id)
     }	
+	componentWillUnmount(){
+		JobActions.undefineJob()		
+	}	
+	notify(error){
+		(error)?
+			toast.error('That Job does not exist', {
+				position: "top-right",
+				hideProgressBar: false,
+				closeOnClick: true
+			}):
+			toast.success('The Job was Updated!', {
+				position: "top-right",
+				hideProgressBar: false,
+				closeOnClick: true
+			})
+	}		
 ////////////////////////////////////////////////////////////////////////
 ///////////////////////////// JobActions ///////////////////////////////
 ////////////////////////////////////////////////////////////////////////
@@ -38,7 +56,8 @@ class JobUpdate extends Reflux.Component{
 		const {id} = this.props.match.params	
 		// update job by id
 		JobActions.updateJobById(id, job)
-		this.props.history.push(`/jobs/${id}`)  
+		this.props.history.push(`/jobs/${id}`)
+		this.notify(false)  
 	}	  
 
 ////////////////////////////////////////////////////////////////////////
@@ -86,9 +105,15 @@ class JobUpdate extends Reflux.Component{
 //////////////////////////////// Render ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 	render(){
-        if(!this.state.job){
+        if(this.state.job === undefined){
             return <Loading />
         }
+        if(this.state.job === null){	
+			this.notify(true)
+            return (
+				<Redirect path="*" to="/jobs" />
+			)
+        }			
 		const {title,city,employer,requirements,tasks} = this.state.job
 		return (
 			<div className="jumbotron">

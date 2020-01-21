@@ -32,7 +32,9 @@ class JobStore extends Reflux.Store{
                 allJobs: data,
                 clear: false    
             })
-        })                 
+        }, error => {
+            console.log(error)
+        })     
     }
     onCreateJob(job){
 		const jobsRef = Firebase.database().ref('/jobs')	
@@ -41,12 +43,12 @@ class JobStore extends Reflux.Store{
     onGetJobById(id){
         const jobRef = Firebase.database().ref(`/jobs/${id}`)
         jobRef.on('value', (snapshot) => {
-            const data = snapshot.val()          
+            const data = snapshot.val()        
             this.setState({
                 ...this.state.job,
                 job: data,
                 clear: false              
-            })			
+            })
         })         
     }
     onUpdateJobById(id, job){
@@ -80,6 +82,14 @@ class JobStore extends Reflux.Store{
             job: newJob,
             clear: true
         })      
+    }
+    onUndefineJob(){
+        const und = undefined
+        this.setState({
+            ...this.state,
+            job: und,
+            clear: true
+        })            
     }
 ////////////////////////////////////////////////////////////////////////
 ///////////////////////////// ReqActions ///////////////////////////////

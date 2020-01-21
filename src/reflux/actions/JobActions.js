@@ -7,7 +7,8 @@ var JobActions = Reflux.createActions([
     "updateJobById",
     "deleteJobById",
     "jobChange",
-    "clearJob"
+    "clearJob",
+    "undefineJob"
 ])
 
 export default JobActions

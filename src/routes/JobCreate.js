@@ -6,6 +6,7 @@ import JobStore from '../reflux/stores/JobStore'
 import JobActions from '../reflux/actions/JobActions'
 import ReqActions from '../reflux/actions/ReqActions'
 import TaskActions from '../reflux/actions/TaskActions'
+import {toast} from 'react-toastify'
 import '../stylesheets/JobCreate.css'
 
 class JobCreate extends Reflux.Component{
@@ -23,6 +24,13 @@ class JobCreate extends Reflux.Component{
 	componentDidMount(){
 		JobActions.clearJob()
 	}
+	notify(){
+		toast.success('The Job was Created!', {
+			position: "top-right",
+			hideProgressBar: false,
+			closeOnClick: true
+		})
+	}		
 ////////////////////////////////////////////////////////////////////////
 ///////////////////////////// JobActions ///////////////////////////////
 ////////////////////////////////////////////////////////////////////////
@@ -36,7 +44,8 @@ class JobCreate extends Reflux.Component{
 		const job = this.state.job
 		// create job
 		JobActions.createJob(job)
-		this.props.history.push('/jobs')  		
+		this.props.history.push('/jobs')
+		this.notify()		  		
 	}	  
 ////////////////////////////////////////////////////////////////////////
 ///////////////////////////// ReqActions ///////////////////////////////
@@ -85,7 +94,7 @@ class JobCreate extends Reflux.Component{
 	render(){
         if(!this.state.clear){
             return <Loading />
-        }
+        }			
 		const {title,city,employer,requirements,tasks} = this.state.job
 		return (
 			<div className="jumbotron">
