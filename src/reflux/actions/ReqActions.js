@@ -1,10 +1,9 @@
 import Reflux from 'reflux'
 
 var ReqActions = Reflux.createActions([
-    "getAllReqs",
     "createReq",
-    "updateReqByKey",
-    "deleteReqbyKey"
+    "updateReqByIndex",
+    "deleteReqByIndex"
 ])
 
 export default ReqActions

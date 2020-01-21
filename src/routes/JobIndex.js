@@ -10,24 +10,19 @@ import JobActions from '../reflux/actions/JobActions'
 class JobIndex extends Reflux.Component {
     constructor(props){
         super(props)
-        this.state = {
-            loading: true
-        }
+
         this.store = JobStore
     } 
 
 	componentDidMount(){ 
         // get all jobs
-        JobActions.getAllJobs()
-        this.setState({
-            loading: false				
-        })   
+        JobActions.getAllJobs() 
     }
 
     render(){    
-        const {loading, allJobs} = this.state
+        const {allJobs} = this.state
 
-        if(loading === true){
+        if(!allJobs){
             return <Loading />
         }
         return (          
@@ -53,21 +48,23 @@ class JobIndex extends Reflux.Component {
 					</tr>
 				</thead>
 				<tbody>
-                    {
-                        Object.keys(allJobs).map(id => {
-                            return (
-                                <tr key={id}>
-                                    <td> 
-                                        <Link to={{pathname: `/jobs/${id}`}} 
-                                              style={{textDecoration:'inherit',color:'inherit'}}>
-                                            {allJobs[id].title} 
-                                        </Link>                       
-                                    </td>                                           
-                                    <td> {allJobs[id].city} </td>
-                                    <td> {allJobs[id].employer} </td>                            
-                                </tr>
-                            )
-                        })
+                    {   
+                        (allJobs)?
+                            Object.keys(allJobs).map(id => {
+                                return (
+                                    <tr key={id}>
+                                        <td> 
+                                            <Link to={{pathname: `/jobs/${id}`}} 
+                                                style={{textDecoration:'inherit',color:'inherit'}}>
+                                                {allJobs[id].title} 
+                                            </Link>                       
+                                        </td>                                           
+                                        <td> {allJobs[id].city} </td>
+                                        <td> {allJobs[id].employer} </td>                            
+                                    </tr>
+                                )
+                            }):
+                            null
                     }                       
 				</tbody>
 			</table>                                

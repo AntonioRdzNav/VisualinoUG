@@ -3,6 +3,8 @@ import Reflux from "reflux"
 import Modal from "../components/Modal"
 import Loading from '../components/Loading'
 import Button from '../components/Button'
+import Reqs from '../components/Reqs'
+import Tasks from '../components/Tasks'
 import {Link} from 'react-router-dom'
 import JobStore from '../reflux/stores/JobStore'
 import JobActions from '../reflux/actions/JobActions'
@@ -12,7 +14,6 @@ class JobShow extends Reflux.Component{
 	constructor(props){
 		super(props)
 		this.state = {
-			loading: true,
 			openModal: false
 		}
 		this.store = JobStore
@@ -23,17 +24,11 @@ class JobShow extends Reflux.Component{
     componentDidMount(){
 		const {id} = this.props.match.params
        	// get job by id
-		JobActions.getJobById(id)
-		console.log(this)
-        this.setState({
-			loading: false,
-			openModal: false				
-        })   		   
+		JobActions.getJobById(id)		   
     }	
 
 	toggleModal() {
-		this.setState({
-			loading: this.state.loading,			
+		this.setState({			
 			openModal: !this.state.openModal
 		})
 	}	
@@ -44,7 +39,7 @@ class JobShow extends Reflux.Component{
 	}
 
 	render(){
-        if(this.state.loading === true){
+        if(!this.state.job){
             return <Loading />
         }
 
@@ -80,34 +75,8 @@ class JobShow extends Reflux.Component{
 						</div>
 					</div>
 					<div>
-						<label className="labTitle">Requirements:</label>
-						<ul className="tab">
-							{
-								(requirements)?
-									requirements.map((req, i) => {
-										return(
-											<li className="list" key={i}>
-												{req}
-											</li>	
-										)
-									}):
-									<li></li>
-							}
-						</ul>
-						<label className="labTitle">Tasks:</label>
-						<ul className="tab">
-							{
-								(tasks)?
-									tasks.map((task, i) => {
-										return(
-											<li className="list" key={i}>
-												{task}
-											</li>	
-										)
-									}):
-									<li></li>
-							}
-						</ul>
+						<Reqs requirements={requirements}/>
+						<Tasks tasks={tasks}/>					
 					</div>						
 				</div>
 				<Modal 

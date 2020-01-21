@@ -12,7 +12,7 @@ function NavBar() {
         <Link to="/jobs"
               style={{textDecoration:'inherit',color:'inherit'}}>
             <li className="links">
-              <h3> Jobs </h3>
+              <h3> Discover Jobs </h3>
             </li>		
         </Link>
       </ul>

@@ -12,3 +12,11 @@ input[type=text] {
 .data{
     width: 90%;
 }
+
+.datas{
+    width: 70%;
+}
+
+p{
+  word-break: break-all;
+}

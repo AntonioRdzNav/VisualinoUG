@@ -1,10 +1,9 @@
 import Reflux from 'reflux'
 
 var TaskActions = Reflux.createActions([
-    "getAllTasks",
     "createTask",
-    "updateTaskByKey",
-    "deleteTaskbyKey"
+    "updateTaskByIndex",
+    "deleteTaskByIndex"
 ])
 
 export default TaskActions

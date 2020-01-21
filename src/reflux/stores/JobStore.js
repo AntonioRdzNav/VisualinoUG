@@ -8,64 +8,29 @@ class JobStore extends Reflux.Store{
     constructor(){
         super()
         this.state = {
-            allJobs: [],
-            job: {},
-			requirements: [],
-			tasks: []            
+            allJobs: undefined, //[]
+            job: undefined, // {}
+            clear: undefined
         }
 
-        this.listenables = [    // set action listeners for all actions
-            JobActions, 
+        this.listenables = [ // set action listeners for all actions
+            JobActions,
             ReqActions,
             TaskActions
-        ] 
+        ]
     }
-
-    onGetAllReqs(){
-
-    }
-    onCreateReq(req){
-        const {allJobs, job, requirements, tasks} = this.state
-        var reqs = requirements
-        reqs.push(req)
-        this.setState({
-            allJobs: allJobs,
-            job: job,
-			requirements: reqs,
-			tasks: tasks
-        })
-    }
-    onUpdateReqbyKey(key){
-
-    }
-    onDeleteReqbyKey(key){
-
-    }
-
-    onGetAllTasks(){
-        
-    }
-    onCreateTask(){
-
-    }
-    onUpdateTaskbyKey(key){
-
-    }
-    onDeleteTaskbyKey(key){
-
-    }
-
+    
+////////////////////////////////////////////////////////////////////////
+///////////////////////////// JobActions ///////////////////////////////
+////////////////////////////////////////////////////////////////////////
     onGetAllJobs(){
-        const {allJobs, job, requirements, tasks} = this.state
         const jobsRef = Firebase.database().ref('/jobs')
         jobsRef.on('value', (snapshot) => {
             const data = snapshot.val()
-            this.setState({
-            allJobs: allJobs,              
+            this.setState({   
+                ...this.state.job,                          
                 allJobs: data,
-                job: job,
-                requirements: requirements,
-                tasks: tasks                  
+                clear: false    
             })
         })                 
     }
@@ -74,16 +39,13 @@ class JobStore extends Reflux.Store{
         jobsRef.push(job)  			 
     }
     onGetJobById(id){
-        const {allJobs, job, requirements, tasks} = this.state
         const jobRef = Firebase.database().ref(`/jobs/${id}`)
         jobRef.on('value', (snapshot) => {
-            const data = snapshot.val()        
-            console.log(data)    
+            const data = snapshot.val()          
             this.setState({
-                allJobs: this.state.allJobs,
+                ...this.state.job,
                 job: data,
-                requirements: requirements,
-                tasks: tasks                   
+                clear: false              
             })			
         })         
     }
@@ -95,6 +57,74 @@ class JobStore extends Reflux.Store{
         const jobRef = Firebase.database().ref(`/jobs/${id}`)
         jobRef.remove()
     }
+    onJobChange(name, newValue){
+        this.setState({
+            ...this.state,
+            job: {
+                ...this.state.job,
+                [name]: newValue,
+                clear: false
+            }
+        })
+    }
+    onClearJob(){
+        const newJob = {
+            title: "",
+            city: "",
+            employer: "",
+            requirements: [],
+            tasks: []                    
+        }        
+        this.setState({
+            ...this.state,
+            job: newJob,
+            clear: true
+        })      
+    }
+////////////////////////////////////////////////////////////////////////
+///////////////////////////// ReqActions ///////////////////////////////
+////////////////////////////////////////////////////////////////////////    
+	onCreateReq(req){
+		const {requirements} = this.state.job
+		const newRew = (requirements)? requirements.concat(req): [req]
+		this.onJobChange("requirements", newRew)
+	}
+	onUpdateReqByIndex(index, req){
+        if(req !== ""){
+            const {requirements} = this.state.job
+            var reqs = requirements
+            reqs[index] = req
+            this.onJobChange("requirements", reqs)
+        }
+	}
+	onDeleteReqByIndex(index){	
+		const {requirements} = this.state.job
+		var reqs = requirements
+		reqs.splice(index,1)
+		this.onJobChange("requirements", reqs)	
+	}	
+////////////////////////////////////////////////////////////////////////
+///////////////////////////// TaskActions ///////////////////////////////
+////////////////////////////////////////////////////////////////////////
+	onCreateTask(task){
+		const {tasks} = this.state.job
+		const newTask = (tasks)? tasks.concat(task): [task] 
+		this.onJobChange("tasks", newTask)	
+	}
+	onUpdateTaskByIndex(index, task){	
+        if(task !== ""){
+            const {tasks} = this.state.job
+            var tasksVar = tasks
+            tasksVar[index] = task
+            this.onJobChange("tasks", tasksVar)
+        }
+	}
+	onDeleteTaskByIndex(index){	
+		const {tasks} = this.state.job
+		var tasksVar = tasks
+		tasksVar.splice(index,1)
+		this.onJobChange("tasks", tasksVar)
+	}	    
 }
 
 export default JobStore
